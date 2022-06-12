@@ -4,8 +4,8 @@
 	padding: 0;
 }
 :root {
-	--first-color: #fa1406;
-	--second-color: #d2c7be;
+	--first-color: rgb(255, 20, 6);
+	--second-color: rgb(190, 210, 197);
 }
 
 body {
