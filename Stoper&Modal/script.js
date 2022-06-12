@@ -62,7 +62,19 @@ const clearstafff = () => {
 	min = 0;
 };
 
+const showHistory = () => {
+	timeList.textContent = '';
+	let num = 1;
+	timesArr.forEach((time) => {
+		const newTime = document.createElement('li');
+		newTime.innerHTML=`Nr ${num}: <span>${time}</span`;
+		timeList.appendChild(newTime);
+		num++;
+	});
+};
+
 startBtn.addEventListener('click', handleStart);
 pauseBtn.addEventListener('click', pauseCounter);
 stopBtn.addEventListener('click', handleStop);
 resetBtn.addEventListener('click', handleReset);
+historyBtn.addEventListener('click', showHistory);
