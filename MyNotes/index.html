@@ -22,7 +22,7 @@
 </div>
 
 <div class="note-area">
-    <div class="note">
+  <!--  <div class="note">
         <div class="note-header">
             <h3 class="note-title">Note #1</h3>
             <button class="delete-note">
@@ -37,12 +37,13 @@
             repellat.
         </div>
     </div>
+-->
 </div>
 
 <div class="note-panel">
     <h2>Add a note</h2>
     <label for="category">Choose category</label>
-    <select id="category">
+    <select id="category" onchange="selectValue()">
         <option value="0" disabled selected>Choose category</option>
         <option value="1">Shops</option>
         <option value="1">Work</option>
