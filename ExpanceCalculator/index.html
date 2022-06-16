@@ -14,6 +14,94 @@
 </head>
 
 <body>
+    <header>
+        <h1><i class="fas fa-wallet">Wallet</i></h1>
+        <p>My Wallet</p>
+    </header>
+
+    <main>
+        <section class="transatcions">
+            <h2 class="title">Transation list</h2>
+            <div class="transation-list">
+                <div class="income-area">
+                    <h3>Income:</h3>
+                    <div class="transaction" id="0">
+                        <p class="transaction-name"><i class="fas fa-money-bill-wave"></i>Salary:</p>
+                        <p class="transaction-amount">2000Pln <button class="delete"><i
+                                    class="fas fa-times"></i></button>
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="expenses-area">
+                    <h3>Expenses</h3>
+                    <div class="transaction" id="1">
+                        <p class="transaction-name"><i class="fas fa-cart-arrow-down"></i>Shops</p>
+                        <p class="transaction-amount">-200 <button class="delete"><i class="fas fa-times"></i></button>
+                        </p>
+                    </div>
+
+                    <div class="transaction" id="2">
+                        <p class="transaction-name"><i class="fas fa-hamburger"></i>Foods</p>
+                        <p class="transaction-amount">-100 <button class="delete"><i class="fas fa-times"></i></button>
+                        </p>
+                    </div>
+
+                    <div class="transaction" id="3"></div>
+                    <p class="transaction-name"><i class="fas fa-film"></i>Movie</p>
+                    <div class="transaction-amount">-50 <button class="delete"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="options">
+            <div>
+                <h2 class="title"> Available Money</h2>
+                <p class="available-money">0PLN</p>
+            </div>
+
+            <div class="controls">
+                <button class="add-transaction"><i class="fas fa-plus"></i>Add Transaction</button>
+                <button class="delete-all"><i class="far fa-trash-alt"></i> Delete All</button>
+            </div>
+            <div class="style-selection">
+                <h2 class="title">Styles:</h2>
+                <div class="color-buttons">
+                    <button class="light"></button>
+                    <button class="dark"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="add-transaction-panel">
+        <h2 class="add-new-transaction"></h2>
+        <label for="name">Name:</label>
+        <small>(Give name your transaction)</small>
+        <input type="text" id="name">
+
+        <label for="amount">Amount:</label>
+        <small>(give a number if you have the expense before add '-')</small>
+        <input type="number" id="amount">
+
+        <label for="category">Choose the category</label>
+        <small>( "+" means income, "-" means expense )</small>
+        <select id="category">
+            <option value="none" selected disabled></option>
+            <option value="income">"+" Income</option>
+            <option value="shopping">"-" Shopping</option>
+            <option value="food">"-" Food</option>
+            <option value="cinema">"-" Cinema</option>
+        </select>
+        <div class="panel-buttons">
+            <button class="save"><i class="fas fa-save"></i>save</button>
+            <button class="cancel"><i class="far fa-window-close"></i>cancel</button>
+        </div>
+    </div>
+
 
     <script src="./script.js"></script>
 </body>
