@@ -58,6 +58,7 @@ const createNewTransaction = () => {
 		  newTransaction.classList.add('expense');
 
 	moneyArr.push(parseFloat(amountInput.value));
+	countMoney(moneyArr);
 	cancelPanel();
 	ID++;
 	clearInputs();
@@ -87,6 +88,11 @@ const clearInputs = () => {
 	nameInput.value = '';
 	amountInput.value = '';
 	categorySelect.selectedIndex = 0;
+};
+
+const countMoney = (money) => {
+	const newMoney = money.reduce((a, b) => a + b);
+	available.textContent = `${newMoney}PLN`;
 };
 
 addTransationBtn.addEventListener('click', showPanel);
