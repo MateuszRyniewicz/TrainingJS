@@ -1,100 +1,140 @@
 const incomeSection = document.querySelector('.income-area');
 const expensesSection = document.querySelector('.expenses-area');
-const available = document.querySelector('.available-money');
-const addTranPanel = document.querySelector('.add-transaction-panel');
+const availableMoney = document.querySelector('.available-money');
+const addTransactionPanel = document.querySelector('.add-transaction-panel');
 
 const nameInput = document.querySelector('#name');
-const amountInput = document.querySelector('#amount');
+const inputAmount = document.querySelector('#amount');
 const categorySelect = document.querySelector('#category');
 
-const addTransationBtn = document.querySelector('.add-transaction');
+const addTransactionPanelBtn = document.querySelector('.add');
 const saveBtn = document.querySelector('.save');
 const cancelBtn = document.querySelector('.cancel');
 const deleteBtn = document.querySelector('.delete');
-const deleteAllBtn = document.querySelector('.delete-all');
+const deleteAll = document.querySelector('.delete-all');
+const lightBtn = document.querySelector('.light');
+const darkBtn = document.querySelector('.dark');
 
-const rot = document.documentElement;
+let root = document.documentElement;
 let ID = 0;
 let categoryIcon;
 let selectedCategory;
 let moneyArr = [0];
 
 const showPanel = () => {
-	addTranPanel.style.display = 'flex';
+	addTransactionPanel.style.display = 'flex';
 };
 
-const cancelPanel = () => {
-	addTranPanel.style.display = 'none';
-	clearInputs();
+const closePanel = () => {
+	addTransactionPanel.style.display = 'none';
+	claerInputs();
 };
 
 const checkForm = () => {
 	if (
 		nameInput.value !== '' &&
-		amountInput.value !== '' &&
+		inputAmount.value !== '' &&
 		categorySelect.value !== 'none'
 	) {
 		createNewTransaction();
 	} else {
-		alert('You have to write all filds');
+		alert('you have to write all fields');
 	}
+};
+
+const claerInputs = () => {
+	nameInput.value = '';
+	inputAmount.value = '';
+	categorySelect.selectedIndex = 0;
 };
 
 const createNewTransaction = () => {
 	const newTransaction = document.createElement('div');
-	newTransaction.classList.add('transaction');
+	newTransaction.classList.add('transatcion');
 	newTransaction.setAttribute('id', ID);
+	checkCategory(selectedCategory);
+	newTransaction.innerHTML = `
+	<p class="transaction-name">${categoryIcon}</i>${nameInput.value}</p>
+                        <p class="transatcion-amount">${inputAmount.value} PLN <button class="delete" onclick="deleteTransaction(${ID})"><i class="fas fa-times"></i></button>
+                        </p>
 
-	CheckCategory(selectedCategory);
+	`;
 
-	newTransaction.innerHTML = `<p class="transaction-name">${categoryIcon} ${nameInput.value}</p>
-                        <p class="transaction-amount">${amountInput.value} <button class="delete" onclick="deleteTransaction(${ID})"><i class="fas fa-times"></i></button>
-                        </p>`;
-
-	amountInput.value > 0
+	inputAmount.value > 0
 		? incomeSection.appendChild(newTransaction) &&
 		  newTransaction.classList.add('income')
 		: expensesSection.appendChild(newTransaction) &&
 		  newTransaction.classList.add('expense');
 
-	moneyArr.push(parseFloat(amountInput.value));
+	moneyArr.push(parseFloat(inputAmount.value));
 	countMoney(moneyArr);
-	cancelPanel();
+	closePanel();
 	ID++;
-	clearInputs();
+	claerInputs();
+};
+const selectCategory = () => {
+	selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
 };
 
-const CheckCategory = (transaction) => {
-	switch (transaction) {
-		case '"+" Income':
+const checkCategory = (trans) => {
+	switch (trans) {
+		case '(+) Income':
 			categoryIcon = "<i class='fas fa-money-bill-wave'></i>";
-		case '"-" Shopping':
+			break;
+		case '(-) Shopping':
 			categoryIcon = "<i class='fas fa-cart-arrow-down'></i>";
 			break;
-		case '"-" Food':
+
+		case '(-) Foods':
 			categoryIcon = "<i class='fas fa-hamburger'></i>";
 			break;
-		case '"-" Cinema':
+
+		case '(-) Cinema':
 			categoryIcon = "<i class='fas fa-film'></i>";
 			break;
 	}
 };
 
-const selectCategory = () => {
-	selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
-};
-
-const clearInputs = () => {
-	nameInput.value = '';
-	amountInput.value = '';
-	categorySelect.selectedIndex = 0;
-};
-
 const countMoney = (money) => {
 	const newMoney = money.reduce((a, b) => a + b);
-	available.textContent = `${newMoney}PLN`;
+	availableMoney.textContent = `${newMoney} PLN`;
 };
 
-addTransationBtn.addEventListener('click', showPanel);
-cancelBtn.addEventListener('click', cancelPanel);
+const deleteTransaction = (id) => {
+	const transactionToDelete = document.getElementById(id);
+	const transactionAmount = parseFloat(
+		transactionToDelete.childNodes[3].innerText
+	);
+	const transactionIndexOf = moneyArr.indexOf(transactionAmount);
+	moneyArr.splice(transactionIndexOf, 1);
+	countMoney(moneyArr);
+
+	transactionToDelete.classList.contains('income')
+		? incomeSection.removeChild(transactionToDelete)
+		: expensesSection.removeChild(transactionToDelete);
+};
+
+const deleteAllTransaction = () => {
+	incomeSection.innerHTML = '<h3>Income:</h3>';
+	expensesSection.innerHTML = '<h3>Expenses:</h3>';
+	availableMoney.textContent = '0';
+	moneyArr = [0];
+};
+
+const changeStyleToLight = () => {
+	root.style.setProperty('--first-color', '#f9f9f9');
+	root.style.setProperty('--second-color', '#14161f');
+	root.style.setProperty('--border-color', 'rgba(0,0,0,0.2');
+};
+
+const changeStyleToDark = () => {
+	root.style.setProperty('--first-color', '#14161f');
+	root.style.setProperty('--second-color', '#f9f9f9');
+	root.style.setProperty('--border-color', 'rgba(255,255,255,0.4');
+};
+addTransactionPanelBtn.addEventListener('click', showPanel);
+cancelBtn.addEventListener('click', closePanel);
 saveBtn.addEventListener('click', checkForm);
+deleteAll.addEventListener('click', deleteAllTransaction);
+lightBtn.addEventListener('click', changeStyleToLight);
+darkBtn.addEventListener('click', changeStyleToDark);
